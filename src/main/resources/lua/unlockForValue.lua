@@ -5,7 +5,7 @@ local value=ARGV[1]
 -- 判断键是否存在，不存在直接返回解锁成功
 local flag = redis.call('exists', key)
 print(flag)
-if flag == 0 or flag == false then
+if flag == 0 then
     return true
 end
 -- 比较值，如果相同就删除，否则不删除
