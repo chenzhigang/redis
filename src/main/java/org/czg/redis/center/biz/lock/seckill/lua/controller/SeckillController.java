@@ -1,11 +1,11 @@
-package org.czg.redis.center.biz.lock.seckill.controller;
+package org.czg.redis.center.biz.lock.seckill.lua.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.czg.redis.center.biz.lock.seckill.model.GoodsStockParam;
 import org.czg.redis.center.biz.lock.seckill.model.SeckillParam;
-import org.czg.redis.center.biz.lock.seckill.service.SeckillService;
+import org.czg.redis.center.biz.lock.seckill.lua.service.SeckillService;
 import org.czg.redis.center.result.ResultVO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

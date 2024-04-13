@@ -1,4 +1,4 @@
-package org.czg.redis.center.biz.lock.seckill.service;
+package org.czg.redis.center.biz.lock.seckill.lua.service;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
