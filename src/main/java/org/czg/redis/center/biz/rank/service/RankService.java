@@ -2,7 +2,7 @@ package org.czg.redis.center.biz.rank.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.czg.redis.center.biz.rank.model.Rank;
+import org.czg.redis.center.biz.rank.model.RankModel;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
@@ -28,12 +28,12 @@ public class RankService {
         redisTemplate.expire("ranking", 86400, TimeUnit.SECONDS);
     }
 
-    public List<Rank> getRanking() {
-        List<Rank> rankingInfos = new ArrayList<>();
+    public List<RankModel> getRanking() {
+        List<RankModel> rankingInfos = new ArrayList<>();
         Set<ZSetOperations.TypedTuple<String>> rankingSet = redisTemplate.opsForZSet().reverseRangeWithScores("ranking", 0, -1);
         assert rankingSet != null;
         for (ZSetOperations.TypedTuple<String> tuple : rankingSet) {
-            Rank rank = new Rank();
+            RankModel rank = new RankModel();
             rank.setUsername(tuple.getValue());
             rank.setScore(Objects.requireNonNull(tuple.getScore()).intValue());
             rankingInfos.add(rank);

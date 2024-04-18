@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserParam {
+public class UserModel {
 
     @NotBlank(message = "用户姓名不能为空")
     private String username;

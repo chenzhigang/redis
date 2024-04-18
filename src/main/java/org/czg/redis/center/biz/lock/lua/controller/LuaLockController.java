@@ -1,12 +1,11 @@
 package org.czg.redis.center.biz.lock.lua.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.czg.redis.center.biz.lock.lua.service.LuaLockService;
-import org.czg.redis.center.biz.lock.model.LockParam;
+import org.czg.redis.center.biz.lock.model.LockModel;
 import org.czg.redis.center.result.ResultVO;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,48 +27,48 @@ public class LuaLockController {
     /**
      * 加锁
      *
-     * @param lockParam 加锁参数
+     * @param lockModel 加锁参数
      * @return 返回结果
      */
     @PostMapping("/acquire")
-    public ResultVO<Void> acquireLock(@Valid @RequestBody LockParam lockParam, HttpServletRequest request) {
-        luaLockService.lock(lockParam.getKey(), lockParam.getValue(), lockParam.getTtl());
+    public ResultVO<Void> acquireLock(@Valid @RequestBody LockModel lockModel) {
+        luaLockService.lock(lockModel.getKey(), lockModel.getValue(), lockModel.getTtl());
         return ResultVO.success();
     }
 
     /**
      * 加锁（重试）
      *
-     * @param lockParam 加锁参数
+     * @param lockModel 加锁参数
      * @return 返回结果
      */
     @PostMapping("/acquireForRetry")
-    public ResultVO<Void> acquireForRetryLock(@Validated(value = {Default.class, LockParam.RetryLockInterface.class}) @RequestBody LockParam lockParam) {
-        luaLockService.lockForRetry(lockParam.getKey(), lockParam.getValue(), lockParam.getTtl(), lockParam.getRetryTimes());
+    public ResultVO<Void> acquireForRetryLock(@Validated(value = {Default.class, LockModel.RetryLockInterface.class}) @RequestBody LockModel lockModel) {
+        luaLockService.lockForRetry(lockModel.getKey(), lockModel.getValue(), lockModel.getTtl(), lockModel.getRetryTimes());
         return ResultVO.success();
     }
 
     /**
      * 解锁
      *
-     * @param lockParam 解锁参数
+     * @param lockModel 解锁参数
      * @return 返回结果
      */
     @PostMapping("/release")
-    public ResultVO<Void> releaseLock(@Validated(value = {LockParam.ReleaseLockInterface.class}) @RequestBody LockParam lockParam) {
-        luaLockService.unlock(lockParam.getKey());
+    public ResultVO<Void> releaseLock(@Validated(value = {LockModel.ReleaseLockInterface.class}) @RequestBody LockModel lockModel) {
+        luaLockService.unlock(lockModel.getKey());
         return ResultVO.success();
     }
 
     /**
      * 解锁（匹配键值）
      *
-     * @param lockParam 加锁参数
+     * @param lockModel 加锁参数
      * @return 返回结果
      */
     @PostMapping("/releaseForValue")
-    public ResultVO<Void> releaseForValueLock(@Validated(value = {LockParam.ReleaseLockForValueInterface.class}) @RequestBody LockParam lockParam) {
-        luaLockService.unlockForValue(lockParam.getKey(), lockParam.getValue());
+    public ResultVO<Void> releaseForValueLock(@Validated(value = {LockModel.ReleaseLockForValueInterface.class}) @RequestBody LockModel lockModel) {
+        luaLockService.unlockForValue(lockModel.getKey(), lockModel.getValue());
         return ResultVO.success();
     }
 

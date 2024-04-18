@@ -9,7 +9,7 @@ import lombok.Data;
  * @author czg
  */
 @Data
-public class StockParam {
+public class StockModel {
 
     @NotBlank(message = "库存键不能为空")
     private String key;

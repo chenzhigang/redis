@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.czg.redis.center.biz.session.model.User;
-import org.czg.redis.center.biz.session.model.UserExpireParam;
-import org.czg.redis.center.biz.session.model.UserParam;
+import org.czg.redis.center.biz.session.model.UserExpireModel;
+import org.czg.redis.center.biz.session.model.UserModel;
 import org.czg.redis.center.biz.session.util.RedisSessionUtil;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +31,8 @@ public class UserService {
                 .build();
     }
 
-    public String login(UserParam userParam, HttpSession session) {
-        User user = getUser(userParam.getUsername(), userParam.getPassword());
+    public String login(UserModel userModel, HttpSession session) {
+        User user = getUser(userModel.getUsername(), userModel.getPassword());
         String sessionId = UUID.randomUUID().toString();
         session.setAttribute(sessionId, user);
         return sessionId;
@@ -42,8 +42,8 @@ public class UserService {
         return (User) session.getAttribute(sessionId);
     }
 
-    public void setUserExpire(UserExpireParam userExpireParam, HttpSession session) {
-        String sessionId = StringUtils.isEmpty(userExpireParam.getSessionId()) ? session.getId() : userExpireParam.getSessionId();
-        redisSessionUtil.setSessionExpire(sessionId, userExpireParam.getTtl());
+    public void setUserExpire(UserExpireModel userExpireModel, HttpSession session) {
+        String sessionId = StringUtils.isEmpty(userExpireModel.getSessionId()) ? session.getId() : userExpireModel.getSessionId();
+        redisSessionUtil.setSessionExpire(sessionId, userExpireModel.getTtl());
     }
 }

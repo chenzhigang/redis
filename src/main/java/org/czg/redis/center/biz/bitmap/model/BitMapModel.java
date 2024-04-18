@@ -9,7 +9,7 @@ import lombok.Data;
  * @author czg
  */
 @Data
-public class BitMap {
+public class BitMapModel {
 
     /**
      * 键

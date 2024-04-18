@@ -7,7 +7,7 @@ import lombok.Data;
  * @author czg
  */
 @Data
-public class UserOnline {
+public class UserOnlineModel {
 
     @NotNull(message = "用户id")
     private Long userId;

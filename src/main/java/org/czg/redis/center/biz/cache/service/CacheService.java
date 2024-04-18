@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author czg
+ */
 @RequiredArgsConstructor
 @Slf4j
 @Service
-public class DemoService {
+public class CacheService {
 
     private final RedisTemplate<String, Object> redisTemplate;
 

@@ -1,10 +1,13 @@
 package org.czg.redis.center.biz.cache.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * @author czg
+ */
 @Data
-public class CacheParam {
+public class CacheModel {
 
     @NotBlank(message = "redis键不能为空")
     private String key;

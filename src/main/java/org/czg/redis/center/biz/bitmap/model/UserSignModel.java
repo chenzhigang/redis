@@ -9,7 +9,7 @@ import lombok.Data;
  * @author czg
  */
 @Data
-public class UserSign {
+public class UserSignModel {
 
     @NotNull(message = "用户id不能为空", groups = {Default.class, MakeUpSignInterface.class})
     private Long userId;

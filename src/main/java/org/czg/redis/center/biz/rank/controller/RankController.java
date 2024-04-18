@@ -3,8 +3,7 @@ package org.czg.redis.center.biz.rank.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.czg.redis.center.biz.rank.model.Rank;
-import org.czg.redis.center.biz.rank.model.RankParam;
+import org.czg.redis.center.biz.rank.model.RankModel;
 import org.czg.redis.center.biz.rank.service.RankService;
 import org.czg.redis.center.result.ResultVO;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,13 +25,13 @@ public class RankController {
     private final RankService rankService;
 
     @PostMapping("/add")
-    public ResultVO<Void> addRank(@Valid @RequestBody RankParam rankParam) {
-        rankService.addToRanking(rankParam.getUsername(), rankParam.getScore());
+    public ResultVO<Void> addRank(@Valid @RequestBody RankModel rankModel) {
+        rankService.addToRanking(rankModel.getUsername(), rankModel.getScore());
         return ResultVO.success();
     }
 
     @PostMapping("/get")
-    public ResultVO<List<Rank>> getRanking() {
+    public ResultVO<List<RankModel>> getRanking() {
         return ResultVO.success(rankService.getRanking());
     }
 

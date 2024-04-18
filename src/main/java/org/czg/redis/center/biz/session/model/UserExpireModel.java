@@ -7,7 +7,7 @@ import lombok.Data;
  * @author czg
  */
 @Data
-public class UserExpireParam {
+public class UserExpireModel {
 
     /**
      * 会话id

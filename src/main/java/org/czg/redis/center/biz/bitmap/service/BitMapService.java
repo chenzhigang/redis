@@ -3,8 +3,8 @@ package org.czg.redis.center.biz.bitmap.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.czg.redis.center.biz.bitmap.model.BitMap;
-import org.czg.redis.center.biz.bitmap.model.UserSign;
+import org.czg.redis.center.biz.bitmap.model.BitMapModel;
+import org.czg.redis.center.biz.bitmap.model.UserSignModel;
 import org.springframework.data.redis.connection.BitFieldSubCommands;
 import org.springframework.data.redis.connection.StringRedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -39,7 +39,7 @@ public class BitMapService {
 
     private final static String SIGN_STR = "user:sign:%s:%s";
 
-    public void setBit(BitMap bit) {
+    public void setBit(BitMapModel bit) {
         redisTemplate.opsForValue().setBit(bit.getKey(), bit.getOffset(), bit.getValue());
     }
 
@@ -47,7 +47,7 @@ public class BitMapService {
         redisTemplate.opsForValue().setBit(key, offset, value);
     }
 
-    public Boolean getBit(BitMap bit) {
+    public Boolean getBit(BitMapModel bit) {
         return redisTemplate.opsForValue().getBit(bit.getKey(), bit.getOffset());
     }
 
@@ -80,7 +80,7 @@ public class BitMapService {
         setBit(String.format(SIGN_STR, userId, dateTimeStr), (long) (dayOfMonth - 1), true);
     }
 
-    public void signMakeUp(UserSign userSign) {
+    public void signMakeUp(UserSignModel userSign) {
         setBit(String.format(SIGN_STR, userSign.getUserId(), userSign.getDateTimeStr()),
                 (long) userSign.getDayOfMonth() - 1, true);
     }

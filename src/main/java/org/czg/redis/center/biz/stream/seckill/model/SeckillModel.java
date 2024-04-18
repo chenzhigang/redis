@@ -15,6 +15,9 @@ public class SeckillModel {
     @NotBlank(message = "用户id不能为空")
     private String userId;
 
+    /**
+     * 订单号
+     */
     private String orderId;
 
 }

@@ -10,7 +10,7 @@ import lombok.Data;
  * @author czg
  */
 @Data
-public class LockParam {
+public class LockModel {
 
     @NotBlank(message = "锁键不能为空", groups = {Default.class, ReleaseLockInterface.class, ReleaseLockForValueInterface.class})
     private String key;

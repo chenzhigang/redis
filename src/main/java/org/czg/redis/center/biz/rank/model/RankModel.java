@@ -8,7 +8,7 @@ import lombok.Data;
  * @author czg
  */
 @Data
-public class RankParam {
+public class RankModel {
 
     @NotBlank(message = "用户姓名不能为空")
     private String username;

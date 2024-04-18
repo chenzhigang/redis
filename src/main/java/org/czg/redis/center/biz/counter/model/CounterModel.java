@@ -7,7 +7,7 @@ import lombok.Data;
  * @author czg
  */
 @Data
-public class CounterParam {
+public class CounterModel {
 
     @NotBlank(message = "事件不能为空")
     private String event;

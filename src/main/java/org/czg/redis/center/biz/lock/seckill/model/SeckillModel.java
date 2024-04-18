@@ -9,13 +9,13 @@ import lombok.Data;
  * @author czg
  */
 @Data
-public class GoodsStockParam {
+public class SeckillModel {
 
     @NotBlank(message = "商品信息不能为空")
     private String goodsInfo;
 
-    @Min(value = 0, message = "商品库存不能为负数")
-    @NotNull(message = "商品库存数量不能为空")
-    private Long stock;
+    @Min(value = 1, message = "商品购买数量必须为正整数")
+    @NotNull(message = "商品购买数量不能为空")
+    private Long purchaseQuantity;
 
 }

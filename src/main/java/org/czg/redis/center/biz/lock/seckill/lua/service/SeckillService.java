@@ -3,22 +3,18 @@ package org.czg.redis.center.biz.lock.seckill.lua.service;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.czg.redis.center.biz.lock.seckill.model.GoodsStockParam;
+import org.czg.redis.center.biz.lock.seckill.model.GoodsStockModel;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 /**
  * @author czg
@@ -44,8 +40,8 @@ public class SeckillService {
         return redisTemplate.execute(script, keys, amount.toString(), index.toString());
     }
 
-    public void initStock(GoodsStockParam goodsStockParam) {
-        redisTemplate.opsForValue().set(goodsStockParam.getGoodsInfo(), goodsStockParam.getStock().toString());
+    public void initStock(GoodsStockModel goodsStockModel) {
+        redisTemplate.opsForValue().set(goodsStockModel.getGoodsInfo(), goodsStockModel.getStock().toString());
     }
 
     public List<String> seckillFast(String goodsInfo) {
