@@ -55,23 +55,24 @@ public class LuaLockService {
         unlockForValueScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/unlockForValue.lua")));
     }
 
-    public void lock(String key, String value, Long expire) {
+    public boolean lock(String key, String value, Long expire) {
         log.info("加锁[键：{}，值：{}，过期时间：{}]", key, value, expire);
         List<String> keys = new ArrayList<>(Collections.singletonList(key));
         Boolean execute = redisTemplate.execute(lockScript, keys, value, expire.toString());
-        Assert.isTrue(Boolean.TRUE.equals(execute), "加锁失败");
+        return Boolean.TRUE.equals(execute);
     }
 
-    public void lockForRetry(String key, String value, Long expire, Integer retryTimes) {
+    public boolean lockForRetry(String key, String value, Long expire, Integer retryTimes) {
         log.info("加锁[键：{}，值：{}，过期时间：{}，重试次数：{}]", key, value, expire, retryTimes);
         List<String> keys = new ArrayList<>(Collections.singletonList(key));
         Boolean execute = redisTemplate.execute(lockScript, keys, value, expire.toString());
         if (Boolean.TRUE.equals(execute)) {
             log.info("加锁成功[键：{}，值：{}]", key, value);
-            return;
+            return true;
         }
         if (null == retryTimes || retryTimes <= 0) {
-            throw new BusinessException("加锁失败");
+            log.info("加锁失败");
+            return false;
         }
         int retryCount = 1;
         while (true) {
@@ -93,8 +94,10 @@ public class LuaLockService {
             }
         }
         if (retryCount > retryTimes) {
-            throw new BusinessException("加锁失败");
+            log.info("加锁失败");
+            return false;
         }
+        return true;
     }
 
     public void unlock(String key) {

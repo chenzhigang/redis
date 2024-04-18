@@ -20,6 +20,7 @@
         <spring-session-data-redis.version>3.2.0</spring-session-data-redis.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <redisson.version>3.25.2</redisson.version>
+        <fastjson.version>2.0.49</fastjson.version>
     </properties>
 
     <dependencies>
@@ -74,6 +75,20 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+        </dependency>
+
+        <!-- fastjson2 -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.9.22</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

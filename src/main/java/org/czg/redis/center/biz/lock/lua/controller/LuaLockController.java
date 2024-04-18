@@ -1,5 +1,6 @@
 package org.czg.redis.center.biz.lock.lua.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class LuaLockController {
      * @return 返回结果
      */
     @PostMapping("/acquire")
-    public ResultVO<Void> acquireLock(@Valid @RequestBody LockParam lockParam) {
+    public ResultVO<Void> acquireLock(@Valid @RequestBody LockParam lockParam, HttpServletRequest request) {
         luaLockService.lock(lockParam.getKey(), lockParam.getValue(), lockParam.getTtl());
         return ResultVO.success();
     }
